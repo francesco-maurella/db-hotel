@@ -9,7 +9,6 @@
 
 
 
-
 ●  Selezionare tutti gli ospiti con document type = a CI
 -------------------------------------------------------------------------------
 
@@ -22,7 +21,6 @@
 
 
 
-
 ●    Selezionare i paganti che abbiano un ospite id associato
 -------------------------------------------------------------------------------
 
@@ -31,7 +29,6 @@
 	WHERE `ospite_id` <> "NULL";
 
 -------------------------------------------------------------------------------
-
 
 
 
@@ -49,7 +46,6 @@
 
 
 
-
 ●  Selezionare tutti gli ospiti che iniziano per "E"
 
 -------------------------------------------------------------------------------
@@ -58,8 +54,11 @@
 	FROM `ospiti` 
 	WHERE `name` LIKE "e%";
 
--------------------------------------------------------------------------------
+	SELECT * 
+	FROM `ospiti` 
+	WHERE SUBSTRING(`name`, 0, 1) = "e";
 
+-------------------------------------------------------------------------------
 
 
 
@@ -70,14 +69,13 @@
 
 	SELECT * 
 	FROM `ospiti` 
-	WHERE date_of_birth >= CURRENT_DATE - INTERVAL 30 YEAR;
+	WHERE `date_of_birth` >= CURRENT_DATE - INTERVAL 30 YEAR;
 
 	SELECT * 
 	FROM `ospiti` 
-	WHERE DATE_ADD(date_of_birth, INTERVAL 30 YEAR) > NOW();
+	WHERE DATE_ADD(`date_of_birth`, INTERVAL 30 YEAR) > NOW();
 
 -------------------------------------------------------------------------------
-
 
 
 
@@ -94,7 +92,7 @@
 	SELECT * 
 	FROM `prenotazioni` 
 	WHERE created_at >= "2018-05-01"
-		AND created_at <= "2018-05-31"
+		AND created_at <= "2018-05-31";
 
 -------------------------------------------------------------------------------
 
