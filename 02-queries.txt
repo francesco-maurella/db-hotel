@@ -8,8 +8,6 @@
 
 
 
-
-
 ●  Selezionare tutti gli ospiti con document type = a CI
 -------------------------------------------------------------------------
 
@@ -21,26 +19,21 @@
 
 
 
-
-
 ●    Selezionare i paganti che abbiano un ospite id associato
 -------------------------------------------------------------------------
 
-	SELECT * 
-	FROM `paganti` 
+	SELECT *
+	FROM `paganti`
 	WHERE `ospite_id` IS NOT NULL;
 
 -------------------------------------------------------------------------
 
 
 
-
-
 ●  Selezionare tutte le stanze del primo piano
-
 -------------------------------------------------------------------------
 
-	SELECT * 
+	SELECT *
 	FROM `stanze`
 	WHERE `floor` = 1;
 
@@ -48,61 +41,51 @@
 
 
 
-
-
 ●  Selezionare tutti gli ospiti che iniziano per "E"
-
 -------------------------------------------------------------------------
 
-	SELECT * 
-	FROM `ospiti` 
+	SELECT *
+	FROM `ospiti`
 	WHERE `name` LIKE "e%";
 
-	SELECT * 
-	FROM `ospiti` 
+	SELECT *
+	FROM `ospiti`
 	WHERE SUBSTRING(`name`, 0, 1) = "e";
 
 -------------------------------------------------------------------------
 
 
 
-
-
 ●  Selezionare tutti gli ospiti che abbiano meno di 30 anni
-
 -------------------------------------------------------------------------
 
-	SELECT * 
-	FROM `ospiti` 
+	SELECT *
+	FROM `ospiti`
 	WHERE `date_of_birth` >= CURRENT_DATE - INTERVAL 30 YEAR;
 
-	SELECT * 
-	FROM `ospiti` 
+	SELECT *
+	FROM `ospiti`
 	WHERE DATE_ADD(`date_of_birth`, INTERVAL 30 YEAR) > NOW();
 
-	SELECT * 
-	FROM `ospiti` 
+	SELECT *
+	FROM `ospiti`
 	WHERE TIMESTAMPDIFF(YEAR, `date_of_birth`, CURDATE()) < "30";
 
 -------------------------------------------------------------------------
 
 
 
-
-
 ●  Seleziona tutte le prenotazioni precedenti a maggio 2018
-
 -------------------------------------------------------------------------
 
-	SELECT * 
-	FROM `prenotazioni` 
-	WHERE EXTRACT(YEAR_MONTH FROM created_at) = "201805";
+	SELECT *
+	FROM `prenotazioni`
+	WHERE EXTRACT(YEAR_MONTH FROM `created_at`) = "201805";
 
 
-	SELECT * 
-	FROM `prenotazioni` 
-	WHERE created_at >= "2018-05-01"
-		AND created_at <= "2018-05-31";
+	SELECT *
+	FROM `prenotazioni`
+	WHERE `created_at` >= "2018-05-01"
+		AND `created_at` <= "2018-05-31";
 
 -------------------------------------------------------------------------
-
