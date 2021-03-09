@@ -1,0 +1,229 @@
+WHERE
+
+  ● Seleziona tutti gli ospiti che sono stati identificati con la carta di identità
+  -------------------------------------------------------------------------
+
+	SELECT * 
+	FROM `ospiti`
+	WHERE `document_type` = "CI";
+
+  -------------------------------------------------------------------------
+
+
+
+
+  ● Seleziona tutti gli ospiti che sono nati dopo il 1988
+  -------------------------------------------------------------------------
+
+	SELECT * 
+	FROM `ospiti` 
+	WHERE EXTRACT(YEAR FROM `date_of_birth`) > "1988";
+
+	SELECT * 
+	FROM `ospiti` 
+	WHERE `date_of_birth` > "1988-12-31";
+
+  -------------------------------------------------------------------------
+
+
+
+
+  ● Seleziona tutti gli ospiti che hanno più di 20 anni (al momento dell’esecuzione della query)
+  -------------------------------------------------------------------------
+
+	SELECT * 
+	FROM `ospiti` 
+	WHERE `date_of_birth` < (`created_at` - INTERVAL 20 YEAR);
+
+	SELECT * 
+	FROM `ospiti` 
+	WHERE DATE_ADD(`date_of_birth`, INTERVAL 20 YEAR) < `created_at`;
+
+	SELECT * 
+	FROM `ospiti` 
+	WHERE TIMESTAMPDIFF(YEAR, `date_of_birth`, `created_at`) > "20";
+
+  -------------------------------------------------------------------------
+
+
+
+
+  ● Seleziona tutti gli ospiti il cui nome inizia con la D
+  -------------------------------------------------------------------------
+
+	SELECT * 
+	FROM `ospiti` 
+	WHERE name LIKE "d%"
+    		OR lastname LIKE "d%";
+
+  -------------------------------------------------------------------------
+
+
+
+
+  ● Calcola il totale degli ordini accepted
+  -------------------------------------------------------------------------
+
+	SELECT COUNT(*) 
+	FROM `pagamenti` 
+	WHERE `status` = "accepted"
+
+  -------------------------------------------------------------------------
+
+
+
+
+  ● Qual è il prezzo massimo pagato?
+  -------------------------------------------------------------------------
+
+	SELECT *
+	FROM `pagamenti` 
+	ORDER BY `price` DESC
+	LIMIT 1;
+
+  -------------------------------------------------------------------------
+
+
+
+
+  ● Seleziona gli ospiti riconosciuti con patente e nati nel 1975
+  -------------------------------------------------------------------------
+
+	SELECT * 
+	FROM `ospiti` 
+	WHERE `document_type` = "Driver License"
+		AND EXTRACT(YEAR FROM `date_of_birth`) = "1975";
+
+  -------------------------------------------------------------------------
+
+
+
+
+  ● Quanti paganti sono anche ospiti?
+  -------------------------------------------------------------------------
+
+	SELECT * 
+	FROM `paganti` 
+	WHERE `ospite_id` IS NOT NULL;
+
+  -------------------------------------------------------------------------
+
+
+
+
+  ● Quanti posti letto ha l’hotel in totale?
+  -------------------------------------------------------------------------
+
+	SELECT SUM(`beds`) 
+	FROM `stanze`;
+
+  -------------------------------------------------------------------------
+
+
+
+
+GROUP BY
+
+  ● Conta gli ospiti raggruppandoli per anno di nascita
+  -------------------------------------------------------------------------
+
+	SELECT EXTRACT(YEAR FROM `date_of_birth`), COUNT(*)
+	FROM `ospiti` 
+	GROUP BY EXTRACT(YEAR FROM `date_of_birth`);
+
+  -------------------------------------------------------------------------
+
+
+
+
+  ● Somma i prezzi dei pagamenti raggruppandoli per status
+  -------------------------------------------------------------------------
+
+	SELECT SUM(`price`), `status`
+	FROM `pagamenti` 
+	GROUP BY `status`;
+
+  -------------------------------------------------------------------------
+
+
+
+
+  ● Conta quante volte è stata prenotata ogni stanza
+  -------------------------------------------------------------------------
+
+	SELECT `stanza_id`, COUNT(*)
+	FROM `prenotazioni` 
+	GROUP BY `stanza_id`;
+
+  -------------------------------------------------------------------------
+
+
+
+
+  ● Fai una analisi per vedere se ci sono ore in cui le prenotazioni sono più frequenti
+  -------------------------------------------------------------------------
+
+	SELECT HOUR(`created_at`), COUNT(*)
+	FROM `prenotazioni`
+	GROUP BY HOUR(`created_at`)
+	ORDER BY COUNT(*) DESC;
+
+  -------------------------------------------------------------------------
+
+
+
+
+  ● Quante prenotazioni ha fatto l’ospite che ha fatto più prenotazioni?
+  -------------------------------------------------------------------------
+
+	SELECT `pagante_id`, COUNT(*)
+	FROM `pagamenti`
+	GROUP BY `pagante_id`
+	ORDER BY COUNT(*) DESC
+	LIMIT 1;
+
+  -------------------------------------------------------------------------
+
+
+
+
+JOIN
+
+  ● Come si chiamano gli ospiti che hanno fatto più di due prenotazioni?
+  -------------------------------------------------------------------------
+  -------------------------------------------------------------------------
+
+
+
+
+  ● Stampare tutti gli ospiti per ogni prenotazione
+  -------------------------------------------------------------------------
+  -------------------------------------------------------------------------
+
+
+
+
+  ● Stampare Nome, Cognome, Prezzo e Pagante per tutte le prenotazioni fatte a Maggio 2018
+  -------------------------------------------------------------------------
+  -------------------------------------------------------------------------
+
+
+
+
+  ● Fai la somma di tutti i prezzi delle prenotazioni per le stanze del primo piano
+  -------------------------------------------------------------------------
+  -------------------------------------------------------------------------
+
+
+
+
+  ● Prendi i dati di fatturazione per la prenotazione con id=7
+  -------------------------------------------------------------------------
+  -------------------------------------------------------------------------
+
+
+
+
+  ● Le stanze sono state tutte prenotate almeno una volta? (Visualizzare le stanze non ancora prenotate)
+  -------------------------------------------------------------------------
+  -------------------------------------------------------------------------
