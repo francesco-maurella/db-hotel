@@ -181,7 +181,7 @@ JOIN
   ● Come si chiamano gli ospiti che hanno fatto più di due prenotazioni?
   --------------------------------------------------------------------------------------
 
-	SELECT `name`, `lastname`, COUNT(*) AS `reservations`
+	SELECT `ospiti`.`name`, `ospiti`.`lastname`, COUNT(*) AS `reservations`
 	FROM `prenotazioni_has_ospiti`
 	INNER JOIN `ospiti`
 	ON `prenotazioni_has_ospiti`.`ospite_id` = `ospiti`.`id`
@@ -241,13 +241,13 @@ JOIN
   ● Prendi i dati di fatturazione per la prenotazione con id=7
   --------------------------------------------------------------------------------------
 
-	SELECT `paganti`.`name`, `paganti`.`lastname`, `paganti`.`address`
+	SELECT `paganti`.`name`, `paganti`.`lastname`, `paganti`.`address`, `pagamenti`.`price`
 	FROM `prenotazioni`
 	INNER JOIN `pagamenti`
 	ON `pagamenti`.`prenotazione_id` = `prenotazioni`.`id`
 	INNER JOIN `paganti`
 	ON `pagamenti`.`pagante_id` = `paganti`.`id`
-	WHERE `prenotazioni`.`id` = "17";
+	WHERE `prenotazioni`.`id` = "7";
 
   --------------------------------------------------------------------------------------
 
