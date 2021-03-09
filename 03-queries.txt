@@ -198,6 +198,12 @@ JOIN
 
   ● Stampare tutti gli ospiti per ogni prenotazione
   -------------------------------------------------------------------------
+
+	SELECT *
+	FROM `prenotazioni_has_ospiti`
+	INNER JOIN ospiti
+	ON prenotazioni_has_ospiti.ospite_id = ospiti.id
+
   -------------------------------------------------------------------------
 
 
@@ -205,6 +211,12 @@ JOIN
 
   ● Stampare Nome, Cognome, Prezzo e Pagante per tutte le prenotazioni fatte a Maggio 2018
   -------------------------------------------------------------------------
+
+	SELECT `name`, `lastname`, `price`
+	FROM `pagamenti`
+	INNER JOIN `paganti`
+	ON pagamenti.pagante_id = paganti.id
+
   -------------------------------------------------------------------------
 
 
